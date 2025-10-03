@@ -81,4 +81,4 @@ class MediaDeleteView(View):
     def post(self, request, pk, *args, **kwargs):
         media = Media.objects.get(pk=pk)
         media.delete()
-        return HttpResponseRedirect(reverse_lazy("tracker:tracker_homee"))
+        return HttpResponseRedirect(reverse_lazy("tracker:tracker_home"))

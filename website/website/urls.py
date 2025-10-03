@@ -27,6 +27,6 @@ urlpatterns = [
     path('tracker/', include('tracker.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
     path("registration/", accounts_views.RegistrationView, name="registration"),
-    path('login/', LoginView.as_view(template_name='accounts/login.html'), name='login'),
+    path('login/', LoginView.as_view(template_name='registration/login.html'), name='login'),
     path('logout/', accounts_views.LogoutConfirmView, name='logout'),
 ]

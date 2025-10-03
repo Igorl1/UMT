@@ -22,7 +22,7 @@ def HomeView(request):
     Home page view that handles both authenticated and anonymous users.
     
     - If user is logged in: redirect to their media tracker
-    - If user is anonymous: show welcome/landing page
+    - If user is anonymous: show landing page
     """
     if request.user.is_authenticated:
         # User is logged in, redirect to their tracker

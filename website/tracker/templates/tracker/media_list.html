@@ -42,7 +42,7 @@
                 <th>Title</th>
                 <th>Status</th>
                 <th>Rating</th>
-                <th>Genre</th>
+                <th>Type</th>
                 <th>Description</th>
                 <th>Actions</th>
             </tr>
@@ -53,19 +53,19 @@
             <tr>
                 <td>{{ item.title }}</td>
                 {% if item.status %}
-                <td>{{ item.status }}</td>
+                <td>{{ item.get_status_display }}</td>
                 {% else %}
                 <td>No status defined.</td>
                 {% endif %}
                 {% if item.rating %}
-                <td>{{ item.rating }}</td>
+                <td>{{ item.get_rating_display }}</td>
                 {% else %}
                 <td>No rating defined.</td>
                 {% endif %}
-                {% if item.genre %}
-                <td>{{ item.genre }}</td>
+                {% if item.type %}
+                <td>{{ item.get_type_display }}</td>
                 {% else %}
-                <td>No genre defined.</td>
+                <td>No type defined.</td>
                 {% endif %}
                 {% if item.description %}
                 <td>{{ item.description }}</td>

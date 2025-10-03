@@ -4,26 +4,30 @@ from django.views.generic.base import View
 from tracker.forms import MediaForm
 from django.http.response import HttpResponseRedirect
 from django.urls.base import reverse_lazy
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 
+@method_decorator(login_required, name='dispatch')
 class MediaListView(View):
     """
-    Display a list of all media items in the tracker.
+    Display a list of media items for the current user.
     
-    This view retrieves all Media objects from the database and
-    renders them in a list format for the user to browse.
+    This view retrieves only Media objects created by the logged-in user
+    and renders them in a list format for the user to browse.
     """
     def get(self, request, *args, **kwargs):
-        media = Media.objects.all()
+        media = Media.objects.filter(user=request.user)
         context = { 'media': media, } # Dictionary to pass data to the template
         return render(request, 'tracker/media_list.html', context)
 
 
+@method_decorator(login_required, name='dispatch')
 class MediaAddView(View):
     """
-    Handle creation of new media items.
+    Handle creation of new media items for the current user.
     
     GET: Display an empty MediaForm for user input.
-    POST: Process form submission and save new media to database.
+    POST: Process form submission and save new media to database with current user.
     """
     def get(self, request, *args, **kwargs):
         context = { 'form': MediaForm(), }
@@ -32,8 +36,9 @@ class MediaAddView(View):
     def post(self, request, *args, **kwargs):
         form = MediaForm(request.POST)
         if form.is_valid():
-            media = form.save()
-            media.save()
+            media = form.save(commit=False)  # Don't save to database yet
+            media.user = request.user        # Assign the current user
+            media.save()                     # Now save with user assigned
             return HttpResponseRedirect(reverse_lazy("tracker:home"))
 
 

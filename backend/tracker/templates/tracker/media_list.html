@@ -35,7 +35,7 @@
 </head>
 <body>
     {% include 'tracker/global_links.html' %}
-    <h1><strong>Tracked Media List</strong></h1>
+    <h1><strong>{% firstof user.username %}'s Tracked Media</strong></h1>
     <table>
         <thead>
             <tr>

@@ -7,4 +7,4 @@ class MediaForm(forms.ModelForm):
     """
     class Meta:
         model = Media
-        fields = '__all__'
+        fields = ['title', 'status', 'rating', 'genre', 'description']

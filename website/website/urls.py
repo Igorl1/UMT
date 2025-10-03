@@ -17,13 +17,16 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.urls.conf import include
-from accounts import views
-from django.contrib.auth.views import LoginView
+from accounts import views as accounts_views
+from django.contrib.auth.views import LoginView, LogoutView
+from django.urls.base import reverse_lazy
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', accounts_views.HomeView, name='home'),
     path('tracker/', include('tracker.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
-    path("registration/", views.RegistrationView, name="registration"),
-    path('secure/login/', LoginView.as_view(template_name='accounts/login.html'), name='login'),
+    path("registration/", accounts_views.RegistrationView, name="registration"),
+    path('login/', LoginView.as_view(template_name='accounts/login.html'), name='login'),
+    path('logout/', accounts_views.LogoutConfirmView, name='logout'),
 ]

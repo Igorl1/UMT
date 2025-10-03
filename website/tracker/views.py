@@ -39,7 +39,7 @@ class MediaAddView(View):
             media = form.save(commit=False)  # Don't save to database yet
             media.user = request.user        # Assign the current user
             media.save()                     # Now save with user assigned
-            return HttpResponseRedirect(reverse_lazy("tracker:home"))
+            return HttpResponseRedirect(reverse_lazy("tracker:tracker_home"))
 
 
 @method_decorator(login_required, name='dispatch')
@@ -62,7 +62,7 @@ class MediaEditView(View):
         if form.is_valid():
             media = form.save()
             media.save()
-            return HttpResponseRedirect(reverse_lazy("tracker:home"))
+            return HttpResponseRedirect(reverse_lazy("tracker:tracker_home"))
 
 
 @method_decorator(login_required, name='dispatch')
@@ -81,4 +81,4 @@ class MediaDeleteView(View):
     def post(self, request, pk, *args, **kwargs):
         media = Media.objects.get(pk=pk)
         media.delete()
-        return HttpResponseRedirect(reverse_lazy("tracker:home"))
+        return HttpResponseRedirect(reverse_lazy("tracker:tracker_homee"))

@@ -42,6 +42,7 @@ class MediaAddView(View):
             return HttpResponseRedirect(reverse_lazy("tracker:home"))
 
 
+@method_decorator(login_required, name='dispatch')
 class MediaEditView(View):
     """
     Handle editing of existing media items.
@@ -64,6 +65,7 @@ class MediaEditView(View):
             return HttpResponseRedirect(reverse_lazy("tracker:home"))
 
 
+@method_decorator(login_required, name='dispatch')
 class MediaDeleteView(View):
     """
     Handle deletion of media items.

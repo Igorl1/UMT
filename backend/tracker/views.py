@@ -57,3 +57,21 @@ class MediaEditView(View):
             media = form.save()
             media.save()
             return HttpResponseRedirect(reverse_lazy("tracker:home"))
+
+
+class MediaDeleteView(View):
+    """
+    Handle deletion of media items.
+    
+    GET: Display confirmation page for media deletion.
+    POST: Delete the specified media item from the database.
+    """
+    def get(self, request, pk, *args, **kwargs):
+        media = Media.objects.get(pk=pk)
+        context = { 'media': media, }
+        return render(request, 'tracker/delete_media.html', context)
+
+    def post(self, request, pk, *args, **kwargs):
+        media = Media.objects.get(pk=pk)
+        media.delete()
+        return HttpResponseRedirect(reverse_lazy("tracker:home"))

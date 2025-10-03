@@ -5,18 +5,87 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UMT - Media List</title>
     {% include 'tracker/header.html' %}
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 20px 0;
+        }
+        
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #555;
+        }
+        
+        th {
+            background-color: #2c2c2c;
+            font-weight: bold;
+            border-bottom: 2px solid #777;
+        }
+        
+        tr:hover {
+            background-color: #172c3f;
+        }
+        
+        td a {
+            margin-right: 5px;
+        }
+    </style>
 </head>
 <body>
     {% include 'tracker/global_links.html' %}
     <h1><strong>Tracked Media</strong></h1>
-    {% if media %}
-    <ul>
-        {% for item in media %}
-            <li><strong>{{ forloop.counter }}. {{ item.title }} | {{ item.status }} | {{ item.rating }} | {{ item.genre }} | {{ item.description }} | <a href="{% url 'tracker:edit_media' item.pk %}">[Edit]</a></strong></li>
-        {% endfor %}
-    </ul>
-    {% else %}
-    <p><strong>No entries found. To add an entry, click <a href="{% url 'tracker:add_media' %}">here</a></strong>.</p>
-    {% endif %}
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Status</th>
+                <th>Rating</th>
+                <th>Genre</th>
+                <th>Description</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if media %}
+            {% for item in media %}
+            <tr>
+                <td>{{ item.title }}</td>
+                {% if item.status %}
+                <td>{{ item.status }}</td>
+                {% else %}
+                <td>No status defined.</td>
+                {% endif %}
+                {% if item.rating %}
+                <td>{{ item.rating }}</td>
+                {% else %}
+                <td>No rating defined.</td>
+                {% endif %}
+                {% if item.genre %}
+                <td>{{ item.genre }}</td>
+                {% else %}
+                <td>No genre defined.</td>
+                {% endif %}
+                {% if item.description %}
+                <td>{{ item.description }}</td>
+                {% else %}
+                <td>No description defined.</td>
+                {% endif %}
+                <td>
+                    <a href="{% url 'tracker:edit_media' item.pk %}" class="btn btn-primary">Edit</a>
+                    <a href="{% url 'tracker:delete_media' item.pk %}" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+            {% else %}
+            <tr>
+                <td colspan="6" style="text-align: center; padding: 20px;">
+                    <strong>No entries found. To add an entry, click <a href="{% url 'tracker:add_media' %}">here</a></strong>
+                </td>
+            </tr>
+            {% endif %}
+        </tbody>
+    </table>
 </body>
 </html>

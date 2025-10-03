@@ -8,7 +8,7 @@
 </head>
 <body>
     {% include 'tracker/global_links.html' %}
-    <h1><strong>Editing {{ media.title }}</strong></h1>
+    <h1><strong>Editing "{{ media.title }}"</strong></h1>
     <form action="" method="POST">
         <fieldset style="width: max-content;">
             {% csrf_token %}

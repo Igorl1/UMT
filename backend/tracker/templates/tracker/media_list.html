@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UMT - Media List</title>
+    {% include 'tracker/header.html' %}
+</head>
+<body>
+    {% include 'tracker/global_links.html' %}
+    <h1><strong>Tracked Media</strong></h1>
+    <ul>
+        {% for item in media %}
+            <li><strong>{{ forloop.counter }}. {{ item.title }} | {{ item.status }} | {{ item.rating }} | {{ item.genre }} | {{ item.description }}</strong></li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

@@ -9,10 +9,14 @@
 <body>
     {% include 'tracker/global_links.html' %}
     <h1><strong>Tracked Media</strong></h1>
+    {% if media %}
     <ul>
         {% for item in media %}
             <li><strong>{{ forloop.counter }}. {{ item.title }} | {{ item.status }} | {{ item.rating }} | {{ item.genre }} | {{ item.description }}</strong></li>
         {% endfor %}
     </ul>
+    {% else %}
+    <p><strong>No entries found. To add an entry, click <a href="{% url 'tracker:add_media' %}">here</a></strong>.</p>
+    {% endif %}
 </body>
 </html>

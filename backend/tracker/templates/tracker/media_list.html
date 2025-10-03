@@ -35,7 +35,7 @@
 </head>
 <body>
     {% include 'tracker/global_links.html' %}
-    <h1><strong>Tracked Media</strong></h1>
+    <h1><strong>Tracked Media List</strong></h1>
     <table>
         <thead>
             <tr>
@@ -78,6 +78,11 @@
                 </td>
             </tr>
             {% endfor %}
+            <tr>
+                <td colspan="6" style="text-align: center; padding: 20px;">
+                    <a href="{% url 'tracker:add_media' %}" class="btn btn-primary"><strong>Add Media</strong></a>
+                </td>
+            </tr>
             {% else %}
             <tr>
                 <td colspan="6" style="text-align: center; padding: 20px;">

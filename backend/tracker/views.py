@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from tracker.models import Media
 from django.views.generic.base import View
 from tracker.forms import MediaForm
@@ -31,6 +31,28 @@ class MediaAddView(View):
 
     def post(self, request, *args, **kwargs):
         form = MediaForm(request.POST)
+        if form.is_valid():
+            media = form.save()
+            media.save()
+            return HttpResponseRedirect(reverse_lazy("tracker:home"))
+
+
+class MediaEditView(View):
+    """
+    Handle editing of existing media items.
+    
+    GET: Display a MediaForm pre-filled with the media's current data.
+    POST: Process form submission and update media in database.
+    """
+    def get(self, request, pk, *args, **kwargs):
+        media = get_object_or_404(Media, pk=pk)
+        form = MediaForm(instance=media)
+        context = { 'form': form, 'media': media, }
+        return render(request, "tracker/edit_media.html", context)
+
+    def post(self, request, pk, *args, **kwargs):
+        media = get_object_or_404(Media, pk=pk)
+        form = MediaForm(request.POST, instance=media)
         if form.is_valid():
             media = form.save()
             media.save()

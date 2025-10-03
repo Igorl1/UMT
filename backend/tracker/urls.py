@@ -6,4 +6,5 @@ app_name = "tracker"
 urlpatterns = [
     path('', views.MediaListView.as_view(), name='home'),
     path('add/', views.MediaAddView.as_view(), name='add_media'),
+    path('edit/<int:pk>/', views.MediaEditView.as_view(), name='edit_media'),
 ]

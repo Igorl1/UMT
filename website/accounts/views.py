@@ -42,3 +42,31 @@ def LogoutConfirmView(request):
     else:
         # Show logout confirmation page
         return render(request, 'registration/logout.html')
+
+def DeleteAccountView(request):
+    """
+    Show account deletion confirmation page and handle account deletion POST request.
+    Prevents deletion of admin accounts for security.
+    """
+    user = request.user
+    
+    if user.is_superuser:
+        context = {
+            'error_message': 'Administrator accounts cannot be deleted.',
+            'user': user
+        }
+        return render(request, 'registration/delete_acc.html', context)
+    
+    if request.method == 'POST':
+        # User confirmed
+        if user.is_superuser:
+            return redirect('home')
+
+        # Regular account
+        logout(request)  # Log out
+        user.delete()    # Then delete
+        return redirect('home')
+    else:
+        # Show account deletion confirmation page
+        context = {'user': user}
+        return render(request, 'registration/delete_acc.html', context)

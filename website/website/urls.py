@@ -29,4 +29,5 @@ urlpatterns = [
     path("registration/", accounts_views.RegistrationView, name="registration"),
     path('login/', LoginView.as_view(template_name='registration/login.html'), name='login'),
     path('logout/', accounts_views.LogoutConfirmView, name='logout'),
+    path('delete_account/', accounts_views.DeleteAccountView, name='delete_account'),
 ]

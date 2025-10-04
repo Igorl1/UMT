@@ -8,11 +8,11 @@ class Media(models.Model):
     # Status choices
     STATUS_CHOICES = [
         ('', 'Select Status'),
-        ('consuming', 'Currently Consuming'),
+        ('consuming', 'Consuming'),
         ('completed', 'Completed'),
         ('on_hold', 'On Hold'),
         ('dropped', 'Dropped'),
-        ('plan_to_consume', 'Plan to Consume'),
+        ('planned', 'Planned'),
     ]
     
     # Rating choices (1-10)

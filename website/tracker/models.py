@@ -46,9 +46,9 @@ class Media(models.Model):
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='media_items', null=True, blank=True)
     title = models.CharField(max_length=200)
-    status = models.CharField(choices=STATUS_CHOICES, blank=True, null=True)
+    status = models.CharField(max_length=30, choices=STATUS_CHOICES, blank=True, null=True)
     rating = models.PositiveSmallIntegerField(choices=RATING_CHOICES, blank=True, null=True)
-    type = models.CharField(choices=TYPE_CHOICES, blank=True, null=True)
+    type = models.CharField(max_length=30, choices=TYPE_CHOICES, blank=True, null=True)
     description = models.TextField(max_length=500, blank=True, null=True)
 
     def __str__(self):
